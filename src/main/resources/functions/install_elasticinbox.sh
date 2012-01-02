@@ -1,8 +1,8 @@
 #
-# Licensed to the Apache Software Foundation (ASF) under one or more
+# Licensed to the Optimax Software Ltd. (Optimax) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
-# The ASF licenses this file to You under the Apache License, Version 2.0
+# The Optimax licenses this file to You under the Apache License, Version 2.0
 # (the "License"); you may not use this file except in compliance with
 # the License.  You may obtain a copy of the License at
 #
@@ -16,7 +16,7 @@
 #
 function install_elasticinbox() {
 
-  C_TAR_URL=${1:-https://github.com/downloads/elasticinbox/elasticinbox/elasticinbox-0.2.0-SNAPSHOT-bin.tar.gz}
+  C_TAR_URL=${1:-http://cloud.github.com/downloads/elasticinbox/elasticinbox/elasticinbox-0.2.0-SNAPSHOT-bin.tar.gz}
 
   c_tar_file=`basename $C_TAR_URL`
   c_tar_dir=`echo $c_tar_file | awk -F '-bin' '{print $1}'`

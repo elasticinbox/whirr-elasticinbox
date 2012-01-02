@@ -1,8 +1,8 @@
 /**
- * Licensed to the Apache Software Foundation (ASF) under one
+ * Licensed to the Optimax Software Ltd. (Optimax) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
+ * regarding copyright ownership.  The Optimax licenses this file
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
@@ -23,7 +23,6 @@ import static org.apache.whirr.service.FirewallManager.Rule;
 import static org.jclouds.scriptbuilder.domain.Statements.call;
 
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
@@ -49,8 +48,7 @@ public class ElasticInboxNodeHandler extends ClusterActionHandlerSupport
 	private static final String CONF_S3_IDENTITY = "elasticinbox.aws.s3.identity";
 	private static final String CONF_S3_CREDENTIAL = "elasticinbox.aws.s3.credential";
 	private static final String CONF_CASSANDRA_RF = "elasticinbox.cassandra.replication_factor";
-
-	public static final String BIN_TARBALL = "whirr.elasticinbox.tarball.url";
+	public static final String CONF_BIN_TARBALL = "elasticinbox.tarball.url";
 
 	@Override
 	public String getRole() {
@@ -68,7 +66,7 @@ public class ElasticInboxNodeHandler extends ClusterActionHandlerSupport
 
 		Configuration config = event.getClusterSpec().getConfiguration();
 
-		String tarball = prepareRemoteFileUrl(event, config.getString(BIN_TARBALL, null));
+		String tarball = prepareRemoteFileUrl(event, config.getString(CONF_BIN_TARBALL, null));
 
 		if (tarball != null) {
 			addStatement(event, call("install_elasticinbox", tarball));

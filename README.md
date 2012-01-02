@@ -53,19 +53,28 @@ the cluster is ready to be used.
 
 ### Configure the ElasticInbox cluster
 
-Create schema by running following command on one of the nodes (currently we cannot automate this step
-due to limitation in Whirr, see WHIRR-221). Replace $PRIVATE_IP with private IP of that host (ifconfig eth0).
+Create schema by running following command on one of the nodes (currently we
+cannot automate this step due to limitation in Whirr, see WHIRR-221). Replace 
+$PRIVATE_IP with private IP of any Cassandra host (ifconfig eth0).
 
 ```
 % $CASSANDRA_HOME/bin/cassandra-cli --host $PRIVATE_IP < /tmp/elasticinbox.cml
 ```
 
-Optionally, you may want to adjust Cassandra token ranges. By default, when not specified, Cassandra picks up
-a random token, which will lead to hot spots.
+Optionally, you may want to adjust Cassandra token ranges. By default, when not 
+specified, Cassandra picks up a random token, which will lead to hot spots.
 
 ### Use the cluster
 
-... use cases will be added later
+Add AWS LoadBalancer with TCP/2400 for all ElasticInbox instances. Use `smtp-source` 
+command to generate LMTP traffic. For instance, following command will send 100 messages
+with size of 4K in 40 concurrent streams:
+
+```
+apt-get install postfix
+time smtp-source -L -s 40 -m 100 -l 4096 -d -c -f me@elasticinbox.com \
+   -t test@elasticinbox.com ElasticInbox-LB-1070648408.eu-west-1.elb.amazonaws.com:2400
+```
 
 ### Shutdown the cluster
 
