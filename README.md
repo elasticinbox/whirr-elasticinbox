@@ -7,12 +7,14 @@ Follow these instructions to start a cluster on EC2 running ElasticInbox
 Run the following commands from you local machine.
 
 Set your AWS credentials as environment variables:
+
 ```
 % export AWS_ACCESS_KEY_ID=...
 % export AWS_SECRET_ACCESS_KEY=...
 ```
 
 Download and install Whirr:
+
 ```
 % curl -O http://www.apache.org/dist/incubator/whirr/whirr-0.6.0-incubating/whirr-0.6.0-incubating.tar.gz
 % tar zxf whirr-0.6.0-incubating.tar.gz
@@ -20,6 +22,7 @@ Download and install Whirr:
 ```
 
 Create a password-less SSH keypair for Whirr to use:
+
 ```
 % ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_scm
 ```
@@ -27,6 +30,7 @@ Create a password-less SSH keypair for Whirr to use:
 ### Install Whirr ElasticInbox Plugin
 
 Build plugin from source:
+
 ```
 % git clone git://github.com/elasticinbox/whirr-elasticinbox.git
 % cd whirr-elasticinbox
@@ -39,6 +43,7 @@ Copy the generated JAR file to Whirr's lib directory.
 
 The following command will start a cluster with 3 Cassandra nodes. To change this
 number edit the elasticinbox-ec2.properties file. You may want to change recipe.
+
 ```
 % whirr launch-cluster --config elasticinbox-ec2.properties
 ```
@@ -50,6 +55,7 @@ the cluster is ready to be used.
 
 Create schema by running following command on one of the nodes (currently we cannot automate this step
 due to limitation in Whirr, see WHIRR-221). Replace $PRIVATE_IP with private IP of that host (ifconfig eth0).
+
 ```
 % $CASSANDRA_HOME/bin/cassandra-cli --host $PRIVATE_IP < /tmp/elasticinbox.cml
 ```
@@ -65,6 +71,7 @@ a random token, which will lead to hot spots.
 
 Finally, when you want to shutdown the cluster, run the following command. Note
 that all data and state stored on the cluster will be lost.
+
 ```
 % whirr destroy-cluster --config elasticinbox-ec2.properties
 ```
