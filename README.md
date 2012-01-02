@@ -41,8 +41,9 @@ Copy the generated JAR file to Whirr's lib directory.
 
 ### Launch an ElasticInbox Cluster
 
-The following command will start a cluster with 3 Cassandra nodes. To change this
-number edit the elasticinbox-ec2.properties file. You may want to change recipe.
+The following command will start a cluster of 3 nodes running Cassandra and 
+ElasticInbox. To change the number of nodes edit elasticinbox-ec2.properties file.
+You may want to change other recipe details before launching.
 
 ```
 % whirr launch-cluster --config elasticinbox-ec2.properties
@@ -71,9 +72,10 @@ command to generate LMTP traffic. For instance, following command will send 100 
 with size of 4K in 40 concurrent streams:
 
 ```
-apt-get install postfix
-time smtp-source -L -s 40 -m 100 -l 4096 -d -c -f me@elasticinbox.com \
-   -t test@elasticinbox.com ElasticInbox-LB-1070648408.eu-west-1.elb.amazonaws.com:2400
+# apt-get install postfix
+
+% time smtp-source -L -s 40 -m 100 -l 4096 -d -c -f me@elasticinbox.com \
+    -t test@elasticinbox.com ElasticInbox-LB-1070648408.eu-west-1.elb.amazonaws.com:2400
 ```
 
 ### Shutdown the cluster
